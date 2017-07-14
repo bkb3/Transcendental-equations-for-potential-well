@@ -2,16 +2,16 @@ SaveDefinitions -> True;
 \[Gamma] = k Cot[k];
 Plot[\[Gamma], {k, 0, 10}]
 
-(*Now to solve for the roots we will try the inbuilt function Solve \
+(*Now to solve for the roots we will try the inbuilt function Solve
 at first*)
 (*We assume \[Gamma] = 0.01*)
 Solve[0.01 == k Cot[k], k]
 
-(*See that this cannot be solved. It is because it has infinitely \
-many solutions for k. Just see the graph above and notice that the \
-curve intesects X axis 3 times within interval 0 to 10. Which means \
+(*See that this cannot be solved. It is because it has infinitely
+many solutions for k. Just see the graph above and notice that the
+curve intesects X axis 3 times within interval 0 to 10. Which means
 along x axis the graph cuts many many times*)
-(*So we limit the range of k so search the solutions within that \
+(*So we limit the range of k so search the solutions within that
 range*)
 (*I will limit k from 0 to 15 as follows*)
 Quiet@Solve[{0.01 == k Cot[k], 0 < k < 15}, k]
@@ -28,9 +28,9 @@ Solve[{Infinity == k Cot[k], 0 < k < 15}, k] // FullSimplify
 
 (*It threw an error due to infinity.*)
 (*So we invert the equation and solve*)
-(*There are many ways to solve such infinite equations but this \
+(*There are many ways to solve such infinite equations but this
 approach of inverting is probably easiest for you*)
-(*N means we want result in numeric from otherwise you get values in \
+(*N means we want result in numeric from otherwise you get values in
 Pi)*)
 N[Solve[{0 == k Tan[k], 0 < k < 15}, k] // FullSimplify]
 
@@ -52,7 +52,7 @@ Manipulate[
     
 
 (*Similarly for second case \[Gamma] = 1+ 0.1I*)
-(*As above we solve for real part first like yesterday*)
+(*As above we solve for real part first like above*)
 (*and use k to solve for imaginary part. Also note that the imaginary 
 part = 0.1 in this case*)
 (*Click the numbers in output box to see the output for various k*)
