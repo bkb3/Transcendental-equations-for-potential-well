@@ -1,0 +1,82 @@
+SaveDefinitions -> True;
+\[Gamma] = k Cot[k];
+Plot[\[Gamma], {k, 0, 10}]
+
+(*Now to solve for the roots we will try the inbuilt function Solve \
+at first*)
+(*We assume \[Gamma] = 0.01*)
+Solve[0.01 == k Cot[k], k]
+
+(*See that this cannot be solved. It is because it has infinitely \
+many solutions for k. Just see the graph above and notice that the \
+curve intesects X axis 3 times within interval 0 to 10. Which means \
+along x axis the graph cuts many many times*)
+(*So we limit the range of k so search the solutions within that \
+range*)
+(*I will limit k from 0 to 15 as follows*)
+Quiet@Solve[{0.01 == k Cot[k], 0 < k < 15}, k]
+
+(*The output is {{k -> 1.5644}, {k -> 4.71027}, {k -> 7.85271}, {k -> 10.9947}, {k -> 
+   14.1365}}*)
+
+
+(*Similarly put \[Gamma] =1 and solve*)
+Solve[{1 == k Cot[k], 0 < k < 15}, k] // FullSimplify
+
+(*Now we solve for \[Gamma] = Infinity*)
+Solve[{Infinity == k Cot[k], 0 < k < 15}, k] // FullSimplify
+
+(*It threw an error due to infinity.*)
+(*So we invert the equation and solve*)
+(*There are many ways to solve such infinite equations but this \
+approach of inverting is probably easiest for you*)
+(*N means we want result in numeric from otherwise you get values in \
+Pi)*)
+N[Solve[{0 == k Tan[k], 0 < k < 15}, k] // FullSimplify]
+
+(*The output is {{k -> 3.14159}, {k -> 6.28319}, {k -> 9.42478}, {k -> 12.5664}}*)
+
+(*-----------------The above is for real valued k----------------------------*)
+(*-----------------For complex k we seperate real and complex part and equate them separately as follows-----------*)
+
+Quiet[NSolve[{0.01 == k Cot[k], 0 < k < 15}, k]]
+
+(*Those were the values for k*)
+(*Our \[Gamma] = 0.01 + 0.001I for the first case*)
+(*So we equate the imagnary part found above by ComplexExpand[Im[]]
+to 0.001 and solve for various values of k*)
+(*Click in the number in the output box to get the value*)
+Manipulate[
+ Solve[{ComplexExpand[Im[(k + I j) Cot[k + I j]]] == 0.001, -1 < j < 
+    1}, j], {k, {1.56, 4.71, 7.58}}]
+    
+
+(*Similarly for second case \[Gamma] = 1+ 0.1I*)
+(*As above we solve for real part first like yesterday*)
+(*and use k to solve for imaginary part. Also note that the imaginary 
+part = 0.1 in this case*)
+(*Click the numbers in output box to see the output for various k*)
+
+
+Manipulate[
+ Solve[{ComplexExpand[Im[(k + I j) Cot[k + I j]]] == 0.01, -1 < j < 
+    1}, j], {k, {0.391, 4.49, 7.73, 10.90}}]
+    
+    
+(*Similarly for next*)
+(*Rather than doing separately, I will no combine evrything we have
+done so far in a single formula. Click on corresponding k and
+\[Gamma] to get required values*)
+
+(*Here is how to get the values interactively*)
+(*First click the drop down menu for  values of \[Gamma]*)
+(*Then use slider for various values of k as you please, which will
+be shown in the output*)
+(*For example initially, k= 1.56 and \[Gamma] = 0.01*)
+
+Manipulate[{k, 
+  Solve[{ComplexExpand[Im[(k + I j) Cot[k + I j]]] == \[Gamma], -1 < 
+     j < 1}, j]}, {{k, 1.56}, 0, 
+  10}, {{\[Gamma], 0.01}, {0.001, 0.01, 0.1, 1, 10, 100}}]
+  
+(*Might give some errors but who cares!*)
