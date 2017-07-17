@@ -28,8 +28,6 @@ Solve[{Infinity == k Cot[k], 0 < k < 15}, k] // FullSimplify
 
 (*It threw an error due to infinity.*)
 (*So we invert the equation and solve*)
-(*There are many ways to solve such infinite equations but this
-approach of inverting is probably easiest for you*)
 (*N means we want result in numeric from otherwise you get values in
 Pi)*)
 N[Solve[{0 == k Tan[k], 0 < k < 15}, k] // FullSimplify]
